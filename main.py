@@ -1,9 +1,9 @@
 import json
 
 def main():
-    data = ""
+    data = ''
     line = input()
-    while (line != 'done scanning'):
+    while (line != '!'):
         data += line
         line = input()
 
@@ -25,7 +25,7 @@ def export_to_csv(data):
 
     with open('output.csv', 'w') as output_file:
         for element in result:
-            output_file.write(",".join(map(str, element)) + "\r")
+            output_file.write(','.join(map(str, element)) + '\r')
 
 
 def get_header_items(result, values):
@@ -38,10 +38,6 @@ def get_header_items(result, values):
 
 def add_items_to_data(result, values):
     for key in values:
-        if isinstance(values[key], dict):
-            result.append("")
-            add_items_to_data(result, values[key])
-        else:
-            result.append(values[key])
+        result.append(str(values[key]).replace(",", "").replace("[", "").replace("]", "").replace("'", ""))
 
 main()
